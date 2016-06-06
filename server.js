@@ -1,3 +1,4 @@
+//引入必要的模块以及消息缓存对象
 var http = require("http");
 
 var fs = require("fs");
@@ -8,6 +9,7 @@ var mime = require("mime");
 
 var cache = {};
 
+//定义三个函数分别处理404错误，正常发送文件和检查文件是否缓存在内存中
 function send404(response) {
     response.writeHead(404, {"Content-Type": "text/plain"});
     response.write("Error 404: resource not found.");
@@ -40,6 +42,8 @@ function serverStatic(response, cache, absPath){
     }
 }
 
+
+//创建服务器实例监听8888端口
 var server = http.createServer(function(requset, response){
     var filePath = false ;
     
@@ -56,3 +60,8 @@ var server = http.createServer(function(requset, response){
 server.listen(8888, function(){
     console.log("Server listening on port 8888."); 
 });
+
+//定义Socket.io服务器，给它提供一个已经定义好的HTTP服务器，这样可以与HTTP服务器共用
+//同一个端口
+var chatServer = require('./lib/chat_server');
+chatServer.listen(server);

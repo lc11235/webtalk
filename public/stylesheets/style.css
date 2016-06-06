@@ -21,7 +21,7 @@ a{
 #message{
     width: 690px;
     height: 300px;
-    overflow: auto;
+    overflow: auto;/*让消息可以向下滚动*/
     background-color: #eee;
     margin-bottom: 1em;
     margin-right: 10px;
